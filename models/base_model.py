@@ -9,22 +9,41 @@ class BaseModel:
     """
     Class BaseModel
     """
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """
         Constructor
+        Args:
+            args: Non-Keyword Arguments
+            kwargs: Dictorionary with arguments to set as instance attributes
         """
-        self.name = None
-        self.my_number = None
-        self.id = str(uuid.uuid4())
-        self.create_at = datetime.now()
-        self.update_at = datetime.now()
+        # Condicion para saber si kwargs no esta vacio
+        if bool(kwargs) is True:
+            for keys, values in kwargs.items():
+                if keys == "name":
+                    self.name = values
+                elif keys == "my_number":
+                    self.my_number = values
+                elif keys == "id":
+                    self.id = values
+                elif keys == "created_at":
+                    self.created_at = datetime.strptime(values,
+                                                        "%Y-%m-%dT%H:%M:%S.%f")
+                elif keys == "updated_at":
+                    self.updated_at = datetime.strptime(values,
+                                                        "%Y-%m-%dT%H:%M:%S.%f")
+        else:
+            self.name = None
+            self.my_number = None
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
 
     def save(self):
         """
-        Method that updates the public instance attribute update_at
+        Method that updates the public instance attribute updated_at
         """
-        self.update_at = datetime.now()
-        return self.update_at
+        self.updated_at = datetime.now()
+        return self.updated_at
 
     def __str__(self):
         """
@@ -41,6 +60,6 @@ class BaseModel:
         """
         new_dict = dict(self.__dict__)
         new_dict["__class__"] = type(self).__name__
-        new_dict["create_at"] = self.create_at.isoformat()
-        new_dict["update_at"] = self.update_at.isoformat()
+        new_dict["created_at"] = self.created_at.isoformat()
+        new_dict["updated_at"] = self.updated_at.isoformat()
         return new_dict
