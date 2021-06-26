@@ -4,6 +4,7 @@
 import uuid
 from datetime import datetime
 
+
 class BaseModel:
     """
     Class BaseModel
@@ -29,12 +30,14 @@ class BaseModel:
         """
         Method that returs a string
         """
-        cadena = "[" + self.__class__.__name__ + "]" + " " + "(" + self.id + ")" + " " + str(self.__dict__)
+        cadena = "[" + self.__class__.__name__ + "]" \
+                 + " " + "(" + self.id + ")" + " " + str(self.__dict__)
         return cadena
-    
+
     def to_dict(self):
         """
-        Method that returns a dictionary containing all keys/values of __dict__ of the instance
+        Method that returns a dictionary containing
+        all keys/values of __dict__ of the instance
         """
         new_dict = dict(self.__dict__)
         new_dict["__class__"] = type(self).__name__
