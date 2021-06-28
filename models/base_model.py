@@ -5,6 +5,7 @@ import uuid
 from datetime import datetime
 import models
 
+
 class BaseModel:
     """
     Class BaseModel
@@ -16,27 +17,20 @@ class BaseModel:
             args: Non-Keyword Arguments
             kwargs: Dictorionary with arguments to set as instance attributes
         """
+        t = "%Y-%m-%dT%H:%M:%S.%f"
+        self.id = str(uuid.uuid4())
+        self.created_at = datetime.now()
+        self.updated_at = datetime.now()
         # Condicion para saber si kwargs no esta vacio
         if bool(kwargs) is True:
             for keys, values in kwargs.items():
-                if keys == "name":
-                    self.name = values
-                elif keys == "my_number":
-                    self.my_number = values
-                elif keys == "id":
-                    self.id = values
-                elif keys == "created_at":
-                    self.created_at = datetime.strptime(values,
-                                                        "%Y-%m-%dT%H:%M:%S.%f")
+                if keys == "created_at":
+                    self.__dict__[keys] = datetime.strptime(values, t)
                 elif keys == "updated_at":
-                    self.updated_at = datetime.strptime(values,
-                                                        "%Y-%m-%dT%H:%M:%S.%f")
+                    self.__dict__[keys] = datetime.strptime(values, t)
+                else:
+                    self.__dict__[keys] = values
         else:
-            self.name = None
-            self.my_number = None
-            self.id = str(uuid.uuid4())
-            self.created_at = datetime.now()
-            self.updated_at = datetime.now()
             models.storage.new(self)
 
     def save(self):
@@ -59,8 +53,8 @@ class BaseModel:
         Method that returns a dictionary containing
         all keys/values of __dict__ of the instance
         """
-        new_dict = dict(self.__dict__)
-        new_dict["__class__"] = type(self).__name__
+        new_dict = self.__dict__.copy()
         new_dict["created_at"] = self.created_at.isoformat()
         new_dict["updated_at"] = self.updated_at.isoformat()
+        new_dict["__class__"] = type(self).__name__
         return new_dict
