@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Define HBNBCommand Class"""
 import cmd
+from shlex import split
 from models.base_model import BaseModel
 from models import storage
 
@@ -99,7 +100,7 @@ class HBNBCommand(cmd.Cmd):
         """Usage: update <class> <id> <attribute_name> <attribute_value>
         Updates an instance based on the class name and id by adding
         or updating attribute"""
-        tuparg = parse(arg)
+        tuparg = split(arg)
         dicObj = storage.all()
 
         if len(tuparg) == 0:
