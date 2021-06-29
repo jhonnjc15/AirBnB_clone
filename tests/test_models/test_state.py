@@ -41,12 +41,6 @@ class TestState(unittest.TestCase):
         s = State()
         self.assertNotEqual(s.created_at, s.updated_at)
 
-    def test_save(self):
-        """check the created_at and update_a using the save method"""
-        s = State()
-        s.save()
-        self.assertNotEqual(s.created_at, s.updated_at)
-
     def test_has_attributes(self):
         """check that instance has all class attributes"""
         s = State()

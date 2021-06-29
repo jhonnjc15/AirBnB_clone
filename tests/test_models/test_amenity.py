@@ -41,12 +41,6 @@ class TestAmenity(unittest.TestCase):
         a = Amenity()
         self.assertNotEqual(a.created_at, a.updated_at)
 
-    def test_save(self):
-        """check the created_at and update_a using the save method"""
-        a = Amenity()
-        a.save()
-        self.assertNotEqual(a.created_at, a.updated_at)
-
     def test_has_attributes(self):
         """check that instance has all class attributes"""
         a = Amenity()
