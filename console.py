@@ -10,6 +10,7 @@ from models.city import City
 from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
+import re
 
 
 def parse(arg):
@@ -130,6 +131,21 @@ class HBNBCommand(cmd.Cmd):
             else:
                 obj.__dict__[tuparg[2]] = tuparg[3]
             storage.save()
+
+    def default(self, arg):
+        """Default behavior for cmd module when input is invalid"""
+        dic = {"all": self.do_all}
+        m = re.search(r"\.", arg)
+        if m is not None:
+            listarg = [arg[:m.span()[0]], arg[m.span()[1]:]]
+            m = re.search(r"\((.*)\)", listarg[1])
+            if m is not None:
+                c = [listarg[1][:m.span()[0]], m.group()[1:-1]]
+                if c[0] in dic.keys():
+                    line = "{} {}".format(listarg[0], c[1])
+                    return(dic[c[0]](line))
+        print("*** Unknown syntax: {}".format(arg))
+        return False
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
