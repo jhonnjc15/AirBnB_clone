@@ -31,6 +31,29 @@ class TestState(unittest.TestCase):
             self.assertTrue(att in dic)
             self.assertTrue("__class__" in dic)
 
+    def test_Not_None(self):
+        """check docstrings for existing functions"""
+        s = State()
+        self.assertIsNotNone(s.__doc__)
+
+    def test_before_save(self):
+        """check the created_at and update_a using the save method"""
+        s = State()
+        self.assertNotEqual(s.created_at, s.updated_at)
+
+    def test_save(self):
+        """check the created_at and update_a using the save method"""
+        s = State()
+        s.save()
+        self.assertNotEqual(s.created_at, s.updated_at)
+
+    def test_has_attributes(self):
+        """check that instance has all class attributes"""
+        s = State()
+        self.assertTrue('id' in s.__dict__)
+        self.assertTrue('created_at' in s.__dict__)
+        self.assertTrue('updated_at' in s.__dict__)
+
     def test_to_dict_values(self):
         """test that values in dict returned from to_dict are correct"""
         t_format = "%Y-%m-%dT%H:%M:%S.%f"
