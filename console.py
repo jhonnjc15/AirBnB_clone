@@ -15,7 +15,7 @@ import re
 
 def parse(arg):
     """Return an argument tuple"""
-    return(tuple(arg.split()))
+    return(arg.split())
 
 
 class HBNBCommand(cmd.Cmd):
@@ -138,14 +138,15 @@ class HBNBCommand(cmd.Cmd):
         m = re.search(r"\.", arg)
         if m is not None:
             listarg = [arg[:m.span()[0]], arg[m.span()[1]:]]
-            m = re.search(r"\((.*)\)", listarg[1])
+            m = re.search(r"\((.*?)\)", listarg[1])
             if m is not None:
                 c = [listarg[1][:m.span()[0]], m.group()[1:-1]]
                 if c[0] in dic.keys():
                     line = "{} {}".format(listarg[0], c[1])
                     return(dic[c[0]](line))
         print("*** Unknown syntax: {}".format(arg))
-        return False
+        return(False)
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
