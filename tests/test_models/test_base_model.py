@@ -6,6 +6,7 @@ import unittest
 import pep8
 from uuid import uuid4
 
+
 class TestBaseModel(unittest.TestCase):
     """
     Test cases class
