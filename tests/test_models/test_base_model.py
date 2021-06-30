@@ -98,5 +98,11 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(b2_dict['id'], self.b.id)
         self.assertEqual(b2_dict['__class__'], type(self.b).__name__)
 
+    def test_save(self):
+        """check save function of BaseModel"""
+        b1 = BaseModel()
+        b1.save()
+        self.assertNotEqual(b1.created_at, b1.updated_at)
+
 if __name__ == '__main__':
     unittest.main()
