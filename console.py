@@ -129,16 +129,17 @@ class HBNBCommand(cmd.Cmd):
         elif len(tuparg) == 2:
             print("** attribute name missing **")
         elif len(tuparg) == 3:
-            if type(eval(tuparg[2])) == dict:
-                obj = dicObj["{}.{}".format(tuparg[0], tuparg[1])]
-                for k, v in eval(tuparg[2]).items():
-                    if k in obj.__class__.__dict__.keys():
-                        typeval = type(obj.__class__.__dict__[k])
-                        obj.__dict__[k] = typeval(v)
-                    else:
-                        obj.__dict__[k] = v
-                storage.save()
-            else:
+            try:
+                if type(eval(tuparg[2])) == dict:
+                    obj = dicObj["{}.{}".format(tuparg[0], tuparg[1])]
+                    for k, v in eval(tuparg[2]).items():
+                        if k in obj.__class__.__dict__.keys():
+                            typeval = type(obj.__class__.__dict__[k])
+                            obj.__dict__[k] = typeval(v)
+                        else:
+                            obj.__dict__[k] = v
+                    storage.save()
+            except NameError:
                 print("** value missing **")
         else:
             obj = dicObj["{}.{}".format(tuparg[0], tuparg[1])]
