@@ -10,10 +10,22 @@ from models.base_model import BaseModel
 import json
 import models
 import pep8
-
+from models.place import Place
 
 class TestFileStorage(unittest.TestCase):
     """" Test cases class for FileStorage """
+    @classmethod
+    def setUpClass(cls):
+        cls.p1 = Place()
+        cls.p1.city_id = "Richmond"
+        cls.p1.state_id = "VA"
+        cls.p1.number_rooms = 8
+        cls.p1.description = "awesome"
+
+    @classmethod
+    def tearDownClass(cls):
+        del cls.p1
+
     def setUp(self):
         """ Setup function for TestFileStorage """
         super().setUp()
@@ -246,6 +258,6 @@ class TestFileStorage(unittest.TestCase):
             self.assertNotEqual(all, empty_dict)
         else:
             self.assertDictEqual(all, empty_dict)
-
+    
 if __name__ == '__main__':
     unittest.main()

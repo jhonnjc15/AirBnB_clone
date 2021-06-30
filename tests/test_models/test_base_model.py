@@ -8,6 +8,7 @@ from uuid import uuid4
 import re
 import models
 
+
 class TestBaseModel(unittest.TestCase):
     """
     Test cases class
