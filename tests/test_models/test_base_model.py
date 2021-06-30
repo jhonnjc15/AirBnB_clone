@@ -80,5 +80,23 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(d['name'], "Holberton")
         self.assertEqual(d['my_number'], 89)
 
+    def test_init(self):
+        """check if an instance was created upon initialization"""
+        self.assertTrue(isinstance(self.b, BaseModel))
+
+    def test_kwargs(self):
+        """Kwargs input on BaseModel instantiation"""
+        b_dict = self.b.to_dict()
+        b2 = BaseModel(**b_dict)
+        b2_dict = b2.to_dict()
+        self.assertEqual(
+            b2_dict['updated_at'].split('T')[0], str(
+                self.b.updated_at).split()[0])
+        self.assertEqual(
+            b2_dict['created_at'].split('T')[1], str(
+                self.b.created_at).split()[1])
+        self.assertEqual(b2_dict['id'], self.b.id)
+        self.assertEqual(b2_dict['__class__'], type(self.b).__name__)
+
 if __name__ == '__main__':
     unittest.main()
