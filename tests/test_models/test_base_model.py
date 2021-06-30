@@ -4,7 +4,7 @@ from models.base_model import BaseModel
 from datetime import datetime
 import unittest
 import pep8
-
+from uuid import uuid4
 
 class TestBaseModel(unittest.TestCase):
     """
@@ -38,6 +38,23 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsNotNone(b.__doc__)
         self.assertIsNotNone(b.save.__doc__)
         self.assertIsNotNone(b.to_dict.__doc__)
+
+    def test_create_BaseModel_from_dictionary_as_kwargs_valid_attrs(self):
+        """ Test cases for instantiation from kwargs """
+        id = str(uuid4())
+        now = datetime.now().isoformat()
+        my_dict = {
+            'id': id,
+            '__class__': 'dict',
+            'created_at': now,
+            'updated_at': now
+        }
+        b = BaseModel(**my_dict)
+
+        self.assertEqual(b.id, id)
+        self.assertIs(b.__class__, BaseModel)
+        self.assertEqual(now, b.created_at.isoformat())
+        self.assertEqual(now, b.updated_at.isoformat())
 
     def test_more_attributes(self):
         """check if attributes exists"""
