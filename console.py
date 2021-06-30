@@ -103,7 +103,7 @@ class HBNBCommand(cmd.Cmd):
             storage.save()
 
     def do_all(self, arg):
-        """Usage: all or all <class>
+        """Usage: all or all <class> or <class>.all()
         Prints all string representation of all instances based
         or not on the class name"""
         tuparg = parse(arg)
@@ -122,7 +122,7 @@ class HBNBCommand(cmd.Cmd):
         """Usage: update <class> <id> <attribute_name> <attribute_value>
         Updates an instance based on the class name and id by adding
         or updating attribute"""
-        tuparg = split(arg)
+        tuparg = parse(arg)
         dicObj = storage.all()
 
         if len(tuparg) == 0:
@@ -148,7 +148,7 @@ class HBNBCommand(cmd.Cmd):
 
     def default(self, arg):
         """Default behavior for cmd module when input is invalid"""
-        dic = {"all": self.do_all}
+        dic = {"all": self.do_all, "count": self.do_count}
         m = re.search(r"\.", arg)
         if m is not None:
             listarg = [arg[:m.span()[0]], arg[m.span()[1]:]]
