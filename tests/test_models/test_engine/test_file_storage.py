@@ -9,6 +9,7 @@ from models import storage
 from models.base_model import BaseModel
 import json
 import models
+import pep8
 
 
 class TestFileStorage(unittest.TestCase):
@@ -218,6 +219,33 @@ class TestFileStorage(unittest.TestCase):
         b1 = BaseModel()
         models.storage.save()
         self.assertEqual(os.path.exists('file.json'), True)
+
+    def test_pep8_base_model(self):
+        """
+        pep8 test.
+        Makes sure the Python code is up to the pep8 standard.
+        """
+        syntax = pep8.StyleGuide(quit=True)
+        check = syntax.check_files(['models/base_model.py'])
+        self.assertEqual(
+            check.total_errors, 0,
+            "Found code style errors (and warnings)."
+        )
+
+    def test_instance_creation(self):
+        """ Test for FfileStorage instance creation """
+        my_storage = FileStorage()
+        self.assertIs(type(my_storage), FileStorage)
+
+    def test_method_all(self):
+        """ Test method 'all' of storage """
+        all = storage.all()
+        empty_dict = dict()
+
+        if os.path.exists(self.file_path):
+            self.assertNotEqual(all, empty_dict)
+        else:
+            self.assertDictEqual(all, empty_dict)
 
 if __name__ == '__main__':
     unittest.main()
