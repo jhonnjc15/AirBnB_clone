@@ -15,20 +15,13 @@ import re
 
 def parse(arg):
     """Return list of arg"""
-    curly_braces = re.search(r"\{(.*?)\}", arg)
-    brackets = re.search(r"\[(.*?)\]", arg)
-    if curly_braces is None:
-        if brackets is None:
-            return [i.strip(",") for i in split(arg)]
-        else:
-            lexer = split(arg[:brackets.span()[0]])
-            retl = [i.strip(",") for i in lexer]
-            retl.append(brackets.group())
-            return retl
+    dicstr = re.search(r"\{(.*?)\}", arg)
+    if dicstr is None:
+        return [i.strip(",") for i in split(arg)]
     else:
-        lexer = split(arg[:curly_braces.span()[0]])
-        retl = [i.strip(",") for i in lexer]
-        retl.append(curly_braces.group())
+        nodic = split(arg[:dicstr.span()[0]])
+        retl = [i.strip(",") for i in nodic]
+        retl.append(dicstr.group())
         return retl
 
 
@@ -136,7 +129,17 @@ class HBNBCommand(cmd.Cmd):
         elif len(tuparg) == 2:
             print("** attribute name missing **")
         elif len(tuparg) == 3:
-            print("** value missing **")
+            if type(eval(tuparg[2])) == dict:
+                obj = dicObj["{}.{}".format(tuparg[0], tuparg[1])]
+                for k, v in eval(tuparg[2]).items():
+                    if k in obj.__class__.__dict__.keys():
+                        typeval = type(obj.__class__.__dict__[k])
+                        obj.__dict__[k] = typeval(v)
+                    else:
+                        obj.__dict__[k] = v
+                storage.save()
+            else:
+                print("** value missing **")
         else:
             obj = dicObj["{}.{}".format(tuparg[0], tuparg[1])]
             if tuparg[2] in obj.__class__.__dict__.keys():
