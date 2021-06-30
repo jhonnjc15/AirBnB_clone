@@ -65,7 +65,7 @@ class HBNBCommand(cmd.Cmd):
         elif tuparg[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
         else:
-            print(BaseModel().id)
+            print(eval(tuparg[0])().id)
             storage.save()
 
     def do_show(self, arg):
@@ -96,7 +96,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         elif len(tuparg) == 1:
             print("** instance id missing **")
-        elif "{}.{}".format(tuparg[0], tuparg[1]) not in dicObj:
+        elif "{}.{}".format(tuparg[0], tuparg[1]) not in dicObj.keys():
             print("** no instance found **")
         else:
             del dicObj["{}.{}".format(tuparg[0], tuparg[1])]
