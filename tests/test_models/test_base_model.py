@@ -5,7 +5,8 @@ from datetime import datetime
 import unittest
 import pep8
 from uuid import uuid4
-
+import re
+import models
 
 class TestBaseModel(unittest.TestCase):
     """
@@ -130,6 +131,45 @@ class TestBaseModel(unittest.TestCase):
             b1.save("help")
             b1.to_dict("I'm not a kwarg")
             print(b1.save)
+
+    def test_string_and_dict_and_storage_base_model(self):
+        """
+            Correct output for a printout usage of __str__
+        """
+        b1 = BaseModel()
+        b1.number = 89
+        b1.float_num = 89.9
+
+        # checking if __str__ works by converting it to a string, regex
+        string_output = b1.__str__()
+
+        # Correct class
+        string_model = re.findall("\\[([^[\\]]*)\\]", string_output)
+        self.assertEqual('BaseModel', string_model[0])
+
+        # Correct ID
+        string_id = re.findall("\\(.*?\\)", string_output)
+        self.assertEqual(string_id[0][1:-1], b1.id)
+
+        # checking if to_dict works with correct values
+        b1_dict = b1.to_dict()
+        self.assertEqual(b1_dict['__class__'], 'BaseModel')
+        self.assertEqual(b1_dict['id'], b1.id)
+        updated_at_list = b1_dict['updated_at'].split('T')
+        self.assertEqual(" ".join(updated_at_list), str(b1.updated_at))
+        created_at_list = b1_dict['created_at'].split('T')
+        self.assertEqual(" ".join(created_at_list), str(b1.created_at))
+        self.assertEqual(b1_dict['number'], 89)
+        self.assertEqual(b1_dict['float_num'], 89.9)
+
+        # checking if to_dict assigns correct values
+        self.assertIsInstance(b1_dict, dict)
+        self.assertIsInstance(b1_dict['__class__'], str)
+        self.assertIsInstance(b1_dict['updated_at'], str)
+        self.assertIsInstance(b1_dict['created_at'], str)
+        self.assertIsInstance(b1_dict['id'], str)
+        self.assertIsInstance(b1_dict['number'], int)
+        self.assertIsInstance(b1_dict['float_num'], float)
 
 if __name__ == '__main__':
     unittest.main()
