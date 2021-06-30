@@ -104,5 +104,14 @@ class TestBaseModel(unittest.TestCase):
         b1.save()
         self.assertNotEqual(b1.created_at, b1.updated_at)
 
+    def test_errs(self):
+        """More or less inputs when calling specific base methods"""
+        b1 = BaseModel()
+        with self.assertRaises(TypeError):
+            b2 = BaseModel("I'm not a kwarge")
+            b1.save("help")
+            b1.to_dict("I'm not a kwarg")
+            print(b1.save)
+
 if __name__ == '__main__':
     unittest.main()
