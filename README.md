@@ -17,7 +17,7 @@
 
 **hbnb** is a big project whose purpose is make a full Airbnb clon, in this repository we work the first part of this big project. We covered The console part where we made a simple command interpreter that parses and evaluates input from the commandline appropriately. Test suite included.
 
-## Block diagram of the project
+## Block Diagram of the Project
 
 ![holberton_airbnb_logo](images/Diagram_project_airbnb.png)
 
@@ -39,9 +39,9 @@
   * `to_dict` - creates a dictionary containing all keys/values of `__dict__` of the instance
 * [file_storage.py](/models/engine/file_storage.py) - class FileStorage
   * `all` - returns the dictionary __objects
-  * `new` - sets in __objects the obj with key <obj class name>.id
-  * `save` - serializes __objects to the JSON file
-  * `reload` - deserializes the JSON file to __objects
+  * `new` - sets in `__objects` the obj with key `<obj class name>.id`
+  * `save` - serializes `__objects` to the JSON file
+  * `reload` - deserializes the JSON file to `__objects`
 * [console.py](console.py) - command interpreter
   * `do_create` - create a new instance of a class
   * `do_show` - prints string representation of an instance based on class name and id
@@ -69,7 +69,7 @@
 
 ```./console.py```
 
-## Usage Examples
+## Examples
 
 ### Interactive Mode
 
