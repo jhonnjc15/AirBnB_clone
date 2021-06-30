@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+"""Define test for base model"""
 from models.base_model import BaseModel
 from datetime import datetime
 import unittest
@@ -7,6 +7,8 @@ import pep8
 from uuid import uuid4
 import re
 import models
+import time
+
 
 class TestBaseModel(unittest.TestCase):
     """
@@ -14,6 +16,7 @@ class TestBaseModel(unittest.TestCase):
     """
     @classmethod
     def setUpClass(cls):
+        """Test setUpclass"""
         cls.b = BaseModel()
 
     def test_check_pep8(self):
@@ -170,6 +173,38 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsInstance(b1_dict['id'], str)
         self.assertIsInstance(b1_dict['number'], int)
         self.assertIsInstance(b1_dict['float_num'], float)
+
+    def test_datetime_attributes(self):
+        """Test that two BaseModel instances have different datetime objects
+        and that upon creation have identical updated_at and created_at
+        value."""
+        tic = datetime.now()
+        inst1 = BaseModel()
+        toc = datetime.now()
+        self.assertTrue(tic <= inst1.created_at <= toc)
+        time.sleep(1e-4)
+        tic = datetime.now()
+        inst2 = BaseModel()
+        toc = datetime.now()
+        self.assertTrue(tic <= inst2.created_at <= toc)
+        self.assertEqual(inst1.created_at, inst1.updated_at)
+        self.assertEqual(inst2.created_at, inst2.updated_at)
+        self.assertNotEqual(inst1.created_at, inst2.created_at)
+        self.assertNotEqual(inst1.updated_at, inst2.updated_at)
+
+    def test_uuid(self):
+        """Test that id is a valid uuid"""
+        inst1 = BaseModel()
+        inst2 = BaseModel()
+        for inst in [inst1, inst2]:
+            uuid = inst.id
+            with self.subTest(uuid=uuid):
+                self.assertIs(type(uuid), str)
+                self.assertRegex(uuid,
+                                 '^[0-9a-f]{8}-[0-9a-f]{4}'
+                                 '-[0-9a-f]{4}-[0-9a-f]{4}'
+                                 '-[0-9a-f]{12}$')
+        self.assertNotEqual(inst1.id, inst2.id)
 
 if __name__ == '__main__':
     unittest.main()
