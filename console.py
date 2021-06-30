@@ -148,7 +148,9 @@ class HBNBCommand(cmd.Cmd):
 
     def default(self, arg):
         """Default behavior for cmd module when input is invalid"""
-        dic = {"all": self.do_all, "count": self.do_count}
+        dic = {"all": self.do_all, "count": self.do_count,
+               "show": self.do_show, "destroy": self.do_destroy,
+               "update": self.do_update}
         m = re.search(r"\.", arg)
         if m is not None:
             listarg = [arg[:m.span()[0]], arg[m.span()[1]:]]
@@ -167,7 +169,7 @@ class HBNBCommand(cmd.Cmd):
         listarg = parse(arg)
         count = 0
         for obj in storage.all().values():
-            if argl[0] == obj.__class__.__name__:
+            if listarg[0] == obj.__class__.__name__:
                 count += 1
         print(count)
 
