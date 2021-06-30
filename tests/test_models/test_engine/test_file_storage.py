@@ -8,6 +8,7 @@ from models.engine.file_storage import FileStorage
 from models import storage
 from models.base_model import BaseModel
 import json
+import models
 
 
 class TestFileStorage(unittest.TestCase):
@@ -197,5 +198,26 @@ class TestFileStorage(unittest.TestCase):
             storage.reload({'id': 123})
         with self.assertRaises(TypeError):
             storage.reload('Ranmod value')
+
+    def test_errs(self):
+        """Test most mal usage of FileStorage methods"""
+        b1 = BaseModel()
+        with self.assertRaises(AttributeError):
+            FileStorage.__objects
+            FileStorage.__File_path
+
+        with self.assertRaises(TypeError):
+            models.storage.new()
+            models.storage.new(self, b1)
+            models.save(b1)
+            models.reload(b1)
+            models.all(b1)
+
+    def test_fs_instance(self):
+        """FileStorage class save checks, reload checks"""
+        b1 = BaseModel()
+        models.storage.save()
+        self.assertEqual(os.path.exists('file.json'), True)
+
 if __name__ == '__main__':
     unittest.main()
