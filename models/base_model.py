@@ -28,7 +28,7 @@ class BaseModel:
                     self.__dict__[keys] = datetime.strptime(values, t)
                 elif keys == "updated_at":
                     self.__dict__[keys] = datetime.strptime(values, t)
-                else:
+                elif keys != "__class__":
                     self.__dict__[keys] = values
         else:
             models.storage.new(self)
