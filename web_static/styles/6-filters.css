@@ -1,0 +1,122 @@
+.filters {
+	background-color: white;
+	height: 70px;
+	width: 100%;
+	border: 1px solid #DDDDDD;
+	border-radius: 4px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+
+section.filters button {
+	font-size: 18px;
+	background-color: #FF5A5F;
+	color: white;
+	border: none;
+	height: 48px;
+	width: 20%;
+	margin-left: auto;
+	border-radius: 4px;
+	margin-right: 30px;
+}
+
+/*When the mouse is on the button, gives the effect*/
+section.filters button:hover {
+	opacity: 0.9;
+}
+
+section.filters .locations {
+	position: relative;
+	height: 100%;
+	width: 25%;
+	border-right: 1px solid #DDDDDD;
+	background-color:white;
+}
+
+section.filters .amenities {
+	position: relative;
+	height: 100%;
+	width: 25%;
+}
+/*For "States", "Amenities"*/
+.filters h3 {
+	font-weight: 600;
+	font-size: 18px;
+	margin-top: 15px;
+	margin-left: 50px;
+	margin-bottom: 0px;
+	padding-bottom: 5px;
+}
+
+/*For "California, Arizona..."*/
+.filters h4 {
+	font-weight: 400;
+	font-size: 14px;
+	margin-left: 50px;
+	margin-top: 0px;;
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+}
+
+/*For hidden box*/
+.popover {
+	width:100%;
+	position: absolute;
+	top: 100%;
+	display: none;
+	margin: 0px;
+	padding-bottom: 40px;
+	background-color: #f9f9f9;
+	border: 1px solid #DDDDDD;
+}
+
+/*Made appear the hidden box*/
+.locations:hover .popover, 
+.amenities:hover .popover {
+	display: block;
+}
+
+/*Change the background color of the hidden box*/
+ul:hover {
+	background-color: #f9f9f9;
+	opacity: 0.8;
+}
+
+.popover h2 {
+	font-size: 22px;
+}
+
+/*BOX That contein all Arizona California */
+.locations ul {
+	padding-left: 24px;
+	padding-top: 15px;
+	list-style-type: none;
+}
+
+/*BOX That contein all internet, tv, kitchen */
+.amenities ul {
+	padding-left: 46px;
+	padding-top: 15px;
+	list-style-type: none;
+}
+
+.locations li {
+	padding-top: 5px;
+}
+
+/*"Internet", "TV", "Kitchen"*/
+.amenities li {
+	font-size: 16px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+}
+
+/*San francisco*/
+.sub_elements li {
+	font-size: 16px;
+	padding-left: 0px;
+	padding-top: 0px;
+	padding-bottom: 10px;
+}
+
