@@ -80,7 +80,6 @@ section.filters .amenities {
 /*Change the background color of the hidden box*/
 ul:hover {
 	background-color: #f9f9f9;
-	opacity: 0.8;
 }
 
 .popover h2 {
