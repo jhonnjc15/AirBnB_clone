@@ -4,6 +4,9 @@
 	box-sizing: border-box;
 }
 
+html {
+	position: relative;
+}
 body {
 	margin: 0px;
 	padding: 0px; 
@@ -19,4 +22,5 @@ body {
 	/*The combination of both center the element*/
 	margin-left: auto;
 	margin-right: auto;
+	padding-bottom: 50px;
 }
