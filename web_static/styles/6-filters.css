@@ -60,7 +60,7 @@ section.filters .amenities {
 }
 
 /*For hidden box*/
-.popover {
+.filters .popover {
 	width:100%;
 	position: absolute;
 	top: 100%;
@@ -78,11 +78,11 @@ section.filters .amenities {
 }
 
 /*Change the background color of the hidden box*/
-ul:hover {
+.filters ul:hover {
 	background-color: #f9f9f9;
 }
 
-.popover h2 {
+.filters .popover h2 {
 	font-size: 22px;
 }
 
@@ -94,25 +94,25 @@ ul:hover {
 }
 
 /*BOX That contein all internet, tv, kitchen */
-.amenities ul {
+.filters .amenities ul {
 	padding-left: 46px;
 	padding-top: 15px;
 	list-style-type: none;
 }
 
-.locations li {
+.filters .locations li {
 	padding-top: 5px;
 }
 
 /*"Internet", "TV", "Kitchen"*/
-.amenities li {
+.filters .amenities li {
 	font-size: 16px;
 	padding-top: 6px;
 	padding-bottom: 6px;
 }
 
 /*San francisco*/
-.sub_elements li {
+.filters .sub_elements li {
 	font-size: 16px;
 	padding-left: 0px;
 	padding-top: 0px;

@@ -3,10 +3,11 @@
 	margin: 0px;
 	box-sizing: border-box;
 }
-
 html {
 	position: relative;
+	min-height: 100%;
 }
+
 body {
 	margin: 0px;
 	padding: 0px; 
